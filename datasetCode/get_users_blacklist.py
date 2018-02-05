@@ -18,7 +18,7 @@ for k, v in data.iteritems():
     else:
         users[v['owner']['id']] = users[v['owner']['id']] + 1
 
-print "Number of users: " + str(len(users))
+print "Number of users : " + str(len(users))
 print "User with max publications has:  " + str(max(users.values()))
 
 topX = 5000
