@@ -1,0 +1,6 @@
+<rsp stat="ok">
+<method>flickr.test.echo</method>
+<api_key>0a4ef63db8d41381ec68ad218cac019f</api_key>
+<oauth_token>72157690043667702-69cda510ba5ab7eb</oauth_token>
+<oauth_verifier>c4f8a87c31fd5863</oauth_verifier>
+</rsp>
