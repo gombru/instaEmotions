@@ -3,13 +3,13 @@ from joblib import Parallel, delayed
 import os
 
 
-images_path = "../../../hd/datasets/instaEmotions/img_resized/"
+images_path = "../../../hd/datasets/instaEmotions/json/"
 
 
 def remove(file):
-    if not os.path.isfile(file):
+    if not os.path.isfile(file.replace("img_resized", "json").replace("jpg", "json")):
         try:
-            os.remove(file.replace("img_resized", "json").replace("jpg", "json"))
+            os.remove(file)
         except:
             print "Cannot remove"
             return
@@ -21,4 +21,4 @@ dirs = [dI for dI in os.listdir(images_path) if os.path.isdir(os.path.join(image
 c = 0
 for dir in dirs:
     print dir
-    Parallel(n_jobs=12)(delayed(remove)(file) for file in glob.glob(images_path + dir + "/*.jpg"))
+    Parallel(n_jobs=12)(delayed(remove)(file) for file in glob.glob(images_path + dir + "/*.json"))
