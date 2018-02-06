@@ -9,6 +9,7 @@ images_path = "../../../hd/datasets/instaEmotions/json/"
 def remove(file):
     if not os.path.isfile(file.replace("img_resized", "json").replace("jpg", "json")):
         try:
+            print "Removed"
             os.remove(file)
         except:
             print "Cannot remove"
