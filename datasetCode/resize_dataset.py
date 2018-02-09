@@ -41,7 +41,7 @@ def resize(file):
         im.save(im_dest_path + file.split('/')[-2] + '/' +  file.split('/')[-1])
 
     except:
-        print "Failed copying image. Removing image and caption"
+        print "Failed copying image. Removing image and caption " + str(file)
         try:
             # os.remove(file.replace("img", "json").replace("jpg", "json"))
             # os.remove(file)
@@ -60,4 +60,4 @@ dirs = [dI for dI in os.listdir(images_path) if os.path.isdir(os.path.join(image
 c = 0
 for dir in dirs:
     print dir
-    Parallel(n_jobs=12)(delayed(resize)(file) for file in glob.glob(images_path + dir + "/*.jpg"))
+    Parallel(n_jobs=1)(delayed(resize)(file) for file in glob.glob(images_path + dir + "/*.jpg"))
