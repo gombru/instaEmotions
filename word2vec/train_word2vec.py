@@ -7,7 +7,9 @@ import multiprocessing
 import json
 import logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
-
+import sys
+sys.path.insert(0, '../datasetCode/')
+from load_jsons import *
 
 cores = multiprocessing.cpu_count()
 
@@ -19,10 +21,11 @@ if finetune:
 
 
 whitelist = string.letters + string.digits + ' '
-text_data_path = '../../../datasets/EmotionsDataset/txt/'
-idx_data_path = '../../../datasets/EmotionsDataset/splits/train_all.txt'
-model_path = '../../../datasets/EmotionsDataset/models/word2vec/word2vec_model_EmotionsDataset.model'
+text_data_path = '../../../hd/datasets/instaEmotions/txt/'
+idx_data_path = '../../../hd/datasets/instaEmotions/splits/train_all.txt'
+model_path = '../../../hd/datasets/instaEmotions/models/word2vec/word2vec_model_instaEmotions.model'
 words2filter = ['rt','http','t','gt','co','s','https','http','tweet','markars_','photo','pictur','picture','say','photo','much','tweet','now','blog','wikipedia','google', 'flickr', 'figure', 'photo', 'image', 'homepage', 'url', 'youtube','wikipedia','google', 'flickr', 'figure', 'photo', 'image', 'homepage', 'url', 'youtube', 'images', 'blog', 'pinterest']
+instaEmotions_text_data_path = '../../../hd/datasets/instaEmotions/captions.json'
 
 size = 300 # vector size
 min_count = 5 # minimum word count to 2 in order to give higher frequency words more weighting
@@ -55,7 +58,12 @@ def get_EmotionsDataset():
     for file_name in filenames:
         caption = ""
         filtered_caption = ""
-        file = open(file_name + ".txt", "r")
+        print text_data_path + file_name.strip('\n') + ".txt"
+        try:
+            file = open(text_data_path + file_name.strip('\n') + ".txt", "r")
+        except:
+            print("txt not found, skipping")
+            continue
         for line in file:
             caption = caption + line
         # Replace hashtags with spaces
@@ -69,7 +77,19 @@ def get_EmotionsDataset():
 
     return posts_text
 
-posts_text = get_EmotionsDataset()
+def get_instaEmotions():
+    print "Loading data"
+    data = load(instaEmotions_text_data_path)
+    for k, v in data.iteritems():
+        filtered_caption = ""
+        caption = v.replace('#', ' ')
+        for char in caption:
+            if char in whitelist:
+                filtered_caption += char
+        posts_text.append(filtered_caption.decode('utf-8').lower())
+    return posts_text
+
+posts_text = get_instaEmotions()
 
 print "Number of posts: " + str(len(posts_text))
 
