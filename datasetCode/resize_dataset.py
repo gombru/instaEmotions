@@ -59,4 +59,4 @@ dirs = [dI for dI in os.listdir(json_filtered_path) if os.path.isdir(os.path.joi
 c = 0
 for dir in dirs:
     print dir
-    Parallel(n_jobs=1)(delayed(resize)(file) for file in glob.glob(json_filtered_path + dir + "/*.json"))
+    Parallel(n_jobs=12)(delayed(resize)(file) for file in glob.glob(json_filtered_path + dir + "/*.json"))
