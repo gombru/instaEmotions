@@ -66,6 +66,8 @@ for k, v in data.iteritems():
     output_data[k] = v['caption']
 
     # And save the original json in a separate folder
+    if not os.path.exists(filtered_jsons_dir + k.split('/')[-2]):
+        os.makedirs(filtered_jsons_dir + k.split('/')[-2])
     with open(filtered_jsons_dir + k + '.json', 'w') as outfile:
         json.dump(v, outfile)
 

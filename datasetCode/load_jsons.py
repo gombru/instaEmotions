@@ -15,7 +15,7 @@ def load(path):
                 print c
             with open(file) as data_file:
                 try:
-                    data[file.split('/')[-1][:-5]] = json.load(data_file)
+                    data[file.split('/')[-2] + '/' + file.split('/')[-1][:-5]] = json.load(data_file)
                 except:
                     print "Failed decoding JSON, skipping"
                     continue

@@ -43,11 +43,11 @@ def resize(file):
     except:
         print "Failed copying image. Removing image and caption"
         try:
-        #    os.remove(file)
-        #    os.remove(file.replace("img", "json").replace("jpg", "json"))
+            #    os.remove(file.replace("img", "json").replace("jpg", "json"))
+            os.remove(file)
             os.remove(file.replace("img", "json_filtered").replace("jpg", "json"))
         except:
-            print "Cannot remove"
+            print "Cannot remove " + str(file)
             return
         print "Removed"
         return
