@@ -16,16 +16,15 @@ import multiprocessing
 import json
 
 # Load data and model
-base_path = '../../../datasets/EmotionsDataset/'
+base_path = '../../../hd/datasets/instaEmotions/'
 text_data_path = base_path + 'txt/'
-idx_data_path = '../../../datasets/EmotionsDataset/splits/train_all.txt'
-model_path = base_path + 'models/word2vec/word2vec_model_EmotionsDataset.model'
+model_path = base_path + 'models/word2vec/word2vec_model_instaEmotions.model'
 
-instaEmotions_text_data_path = '../../../hd/datasets/instaEmotions/captions.json'
+instaEmotions_text_data_path = base_path + 'json_filtered'
 
 # Create output files
 dir = "word2vec_l2norm_gt"
-gt_out_path = base_path + dir + '/train_EmotionsDataset_l2norm.txt'
+gt_out_path = base_path + dir + '/train_instaEmotions_l2norm.txt'
 out_gt = open(gt_out_path, "w")
 
 words2filter = ['rt','http','t','gt','co','s','https','http','tweet','markars_','photo','pictur','picture','say','photo','much','tweet','now','blog']
@@ -84,8 +83,6 @@ def infer_word2vec(id, caption):
 
     return id, embedding
 print "Out file is: " + gt_out_path
-print "Reading data from: " + idx_data_path
-
 
 print "Loading data"
 with open(instaEmotions_text_data_path,"r") as file:
