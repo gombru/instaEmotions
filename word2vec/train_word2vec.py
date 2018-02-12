@@ -13,17 +13,17 @@ from load_jsons import *
 
 cores = multiprocessing.cpu_count()
 
-finetune = False
+finetune = True
 if finetune:
     print "Loading pretrained model"
     pretrained_model_path = '../../../datasets/word2vec_pretrained/GoogleNews-vectors-negative300.bin'
-    model = gensim.models.Word2Vec.load_word2vec_format(pretrained_model_path, binary=True)
+    model = gensim.models.KeyedVectors.load_word2vec_format(pretrained_model_path, binary=True)
 
 
 whitelist = string.letters + string.digits + ' '
-text_data_path = '../../../hd/datasets/instaEmotions/txt/'
-idx_data_path = '../../../hd/datasets/instaEmotions/splits/train_all.txt'
-model_path = '../../../hd/datasets/instaEmotions/models/word2vec/word2vec_model_instaEmotions.model'
+text_data_path = '../../../hd/datasets/EmotionDataset/txt/'
+idx_data_path = '../../../hd/datasets/EmotionDataset/splits/train_all.txt'
+model_path = '../../../hd/datasets/EmotionDataset/models/word2vec/word2vec_model_EmotionsDataset.model'
 words2filter = ['rt','http','t','gt','co','s','https','http','tweet','markars_','photo','pictur','picture','say','photo','much','tweet','now','blog','wikipedia','google', 'flickr', 'figure', 'photo', 'image', 'homepage', 'url', 'youtube','wikipedia','google', 'flickr', 'figure', 'photo', 'image', 'homepage', 'url', 'youtube', 'images', 'blog', 'pinterest']
 instaEmotions_text_data_path = '../../../hd/datasets/instaEmotions/json_filtered/'
 
@@ -82,14 +82,14 @@ def get_instaEmotions():
     for k, v in data.iteritems():
         filtered_caption = ""
         caption = v['caption']
-        caption = v.replace('#', ' ')
+        caption = caption.replace('#', ' ')
         for char in caption:
             if char in whitelist:
                 filtered_caption += char
         posts_text.append(filtered_caption.decode('utf-8').lower())
     return posts_text
 
-posts_text = get_instaEmotions()
+posts_text = get_EmotionsDataset()
 
 print "Number of posts: " + str(len(posts_text))
 
