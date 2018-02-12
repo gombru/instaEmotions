@@ -26,8 +26,11 @@ instaEmotions_text_data_path = base_path + 'json_filtered/'
 
 # Create output files
 dir = "word2vec_l2norm_gt"
-gt_out_path = base_path + dir + '/train_instaEmotions_l2norm.txt'
-out_gt = open(gt_out_path, "w")
+train_out_path = base_path + dir + '/train_instaEmotions_l2norm.txt'
+val_out_path = base_path + dir + '/val_instaEmotions_l2norm.txt'
+
+train_file = open(train_out_path, "w")
+val_file = open(val_out_path, "w")
 
 words2filter = ['rt','http','t','gt','co','s','https','http','tweet','markars_','photo','pictur','picture','say','photo','much','tweet','now','blog']
 model = gensim.models.Word2Vec.load(model_path)
@@ -110,13 +113,16 @@ for r in results:
             out = out + ',' + str(v)
         out = out + '\n'
 
-        out_gt.write(out)
+        # Create splits random
+        split = randint(0,19)
+        if split < 19: train_file.write(out)
+        else: val_file.write(out)
 
     except:
         print "Error writing to file: "
         print r[0]
         continue
 
-out_gt.close()
-
+train_file.close()
+val_file.close()
 print "Done"
