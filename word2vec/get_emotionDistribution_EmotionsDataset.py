@@ -11,7 +11,7 @@ import multiprocessing
 base_path = '../../../datasets/EmotionDataset/'
 text_data_path = base_path + 'txt/'
 idx_data_path = '../../../datasets/EmotionDataset/splits/train_all.txt'
-model_path = base_path + 'models/word2vec/word2vec_model_EmotionsDataset.model'
+model_path = '../../../datasets/word2vec_pretrained/GoogleNews-vectors-negative300.bin'
 
 # Create output files
 dir = "emotionDistribution_l2norm_gt"
@@ -19,9 +19,10 @@ gt_out_path = base_path + dir + '/train_EmotionDataset_l2norm.txt'
 out_gt = open(gt_out_path, "w")
 
 words2filter = ['rt','http','t','gt','co','s','https','http','tweet','markars_','photo','pictur','picture','say','photo','much','tweet','now','blog']
-model = gensim.models.Word2Vec.load(model_path)
+# model = gensim.models.Word2Vec.load(model_path)
+model = gensim.models.KeyedVectors.load_word2vec_format(model_path, binary=True)
 
-emotions = ['amusement','contentment','excitement','sadness','fear','disgust','anger','awe']
+emotions = ['amusement','anger','awe','contentment','disgust','excitement','fear','sadness']
 
 size = 8 # vector size
 cores = multiprocessing.cpu_count()
