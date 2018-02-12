@@ -13,6 +13,8 @@ from joblib import Parallel, delayed
 import numpy as np
 import gensim
 import multiprocessing
+import sys
+sys.path.insert(0, '../datasetCode/')
 from load_jsons import *
 
 # Load data and model
