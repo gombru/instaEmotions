@@ -9,7 +9,7 @@ from random import randint
 import multiprocessing
 
 # Load data and model
-base_path = '../../../datasets/instaEmotions/'
+base_path = '../../../hd/datasets/instaEmotions/'
 text_data_path = base_path + 'txt/'
 model_path = base_path + 'models/word2vec/word2vec_model_instaEmotions.model'
 
