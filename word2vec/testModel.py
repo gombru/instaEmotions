@@ -8,7 +8,7 @@ model_path = '../../../datasets/EmotionDataset/models/word2vec/' + model_name
 model_path = '../../../datasets/word2vec_pretrained/GoogleNews-vectors-negative300.bin'
 
 print("Loading model ... ")
-model = models.Word2Vec.load_word2vec_format(model_path, binary=True)
+model = models.KeyedVectors.load_word2vec_format(model_path, binary=True)
 
 for e in emotions:
     print("EMOTION: " + e)
