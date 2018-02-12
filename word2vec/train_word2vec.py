@@ -17,7 +17,7 @@ finetune = True
 if finetune:
     print "Loading pretrained model"
     pretrained_model_path = '../../../datasets/word2vec_pretrained/GoogleNews-vectors-negative300.bin'
-    model = gensim.models.KeyedVectors.load_word2vec_format(pretrained_model_path, binary=True)
+    model = gensim.models.Word2Vec.load_word2vec_format(pretrained_model_path, binary=True)
 
 
 whitelist = string.letters + string.digits + ' '
@@ -58,7 +58,7 @@ def get_EmotionsDataset():
     for file_name in filenames:
         caption = ""
         filtered_caption = ""
-        print text_data_path + file_name.strip('\n') + ".txt"
+        # print text_data_path + file_name.strip('\n') + ".txt"
         try:
             file = open(text_data_path + file_name.strip('\n') + ".txt", "r")
         except:
