@@ -13,7 +13,7 @@ from joblib import Parallel, delayed
 import numpy as np
 import gensim
 import multiprocessing
-import json
+from load_jsons import *
 
 # Load data and model
 base_path = '../../../hd/datasets/instaEmotions/'
@@ -85,8 +85,7 @@ def infer_word2vec(id, caption):
 print "Out file is: " + gt_out_path
 
 print "Loading data"
-with open(instaEmotions_text_data_path,"r") as file:
-    data = json.load(file)
+data = load(instaEmotions_text_data_path)
 
 parallelizer = Parallel(n_jobs=cores)
 tasks_iterator = (delayed(infer_word2vec)(id,caption) for id, caption in data.iteritems())
