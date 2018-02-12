@@ -5,23 +5,25 @@ import string
 from joblib import Parallel, delayed
 import numpy as np
 import gensim
+from random import randint
 import multiprocessing
 
 # Load data and model
 base_path = '../../../datasets/instaEmotions/'
 text_data_path = base_path + 'txt/'
-idx_data_path = '../../../datasets/EmotionDataset/splits/train_all.txt'
-model_path = base_path + 'models/word2vec/word2vec_model_EmotionsDataset.model'
+model_path = base_path + 'models/word2vec/word2vec_model_instaEmotions.model'
 
 # Create output files
 dir = "emotionDistribution_l2norm_gt"
-gt_out_path = base_path + dir + '/train_EmotionDataset_l2norm.txt'
-out_gt = open(gt_out_path, "w")
+train_out_path = base_path + dir + '/train_instaEmotions_l2norm.txt'
+val_out_path = base_path + dir + '/val_instaEmotions_l2norm.txt'
+
+train_file = open(train_out_path, "w")
+val_file = open(val_out_path, "w")
 
 words2filter = ['rt','http','t','gt','co','s','https','http','tweet','markars_','photo','pictur','picture','say','photo','much','tweet','now','blog']
 model = gensim.models.Word2Vec.load(model_path)
 
-#emotions = ['amusement','contentment','excitement','sadness','fear','disgust','anger','awe']
 emotions = ['amusement','anger','awe','contentment','disgust','excitement','fear','sadness']
 
 size = 8 # vector size
@@ -77,36 +79,9 @@ def infer_word2vec(id, caption):
         embedding = embedding / np.linalg.norm(embedding)
 
     return id, embedding
-print "Out file is: " + gt_out_path
-print "Reading data from: " + idx_data_path
-data = {}
-filenames = []
-file = open(idx_data_path, "r")
-for l in file:
-    filenames.append(l.rstrip())
 
-for i,file_name in enumerate(filenames):
-    if i%1000 == 0:
-        print str(i) + " / " + str(len(filenames))
-    caption = ""
-    filtered_caption = ""
-    try:
-        file = open(text_data_path + file_name.rstrip() + ".txt", "r")
-        # print (text_data_path + file_name.rstrip() + ".txt")
-    except:
-        # print("txt not found")
-        continue
-    for line in file:
-        caption = caption + line
-    # Replace hashtags with spaces
-    caption = caption.replace('#', ' ')
-    # Keep only letters and numbers
-    for char in caption:
-        if char in whitelist:
-            filtered_caption += char
 
-    data[file_name + ".jpg"] = filtered_caption.decode('utf-8').lower()
-
+data = load(instaEmotions_text_data_path)
 
 parallelizer = Parallel(n_jobs=cores)
 tasks_iterator = (delayed(infer_word2vec)(id,caption) for id, caption in data.iteritems())
@@ -131,13 +106,17 @@ for r in results:
             out = out + ',' + str(v)
         out = out + '\n'
 
-        out_gt.write(out)
+        # Create splits random
+        split = randint(0,19)
+        if split < 19: train_file.write(out)
+        else: val_file.write(out)
 
     except:
         print "Error writing to file: "
         print r[0].rstrip()
         continue
 
-out_gt.close()
+train_file.close()
+val_file.close()
 
 print "Done"
