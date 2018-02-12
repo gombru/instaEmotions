@@ -22,7 +22,7 @@ base_path = '../../../hd/datasets/instaEmotions/'
 text_data_path = base_path + 'txt/'
 model_path = base_path + 'models/word2vec/word2vec_model_instaEmotions.model'
 
-instaEmotions_text_data_path = base_path + 'json_filtered'
+instaEmotions_text_data_path = base_path + 'json_filtered/'
 
 # Create output files
 dir = "word2vec_l2norm_gt"
