@@ -16,9 +16,9 @@ import multiprocessing
 import json
 
 # Load data and model
-base_path = '../../../datasets/EmotionDataset/'
+base_path = '../../../hd/datasets/EmotionDataset/'
 text_data_path = base_path + 'txt/'
-idx_data_path = '../../../datasets/EmotionDataset/splits/val_all.txt'
+idx_data_path = '../../../hd/datasets/EmotionDataset/splits/val_all.txt'
 model_path = '../../../datasets/word2vec_pretrained/GoogleNews-vectors-negative300.bin'
 
 # Create output files
