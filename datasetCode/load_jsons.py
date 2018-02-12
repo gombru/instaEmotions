@@ -9,7 +9,7 @@ def load(path):
 
     c = 0
     for dir in dirs:
-        for file in glob.glob(dir+ "/*.json"):
+        for file in glob.glob(path + dir+ "/*.json"):
             c += 1
             if c % 10000 == 0:
                 print c
