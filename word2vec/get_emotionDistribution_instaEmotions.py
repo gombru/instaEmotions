@@ -13,7 +13,7 @@ from load_jsons import *
 
 # Load data and model
 base_path = '../../../hd/datasets/instaEmotions/'
-text_data_path = base_path + 'txt/'
+instaEmotions_text_data_path = base_path + 'json_filtered/'
 model_path = base_path + 'models/word2vec/word2vec_model_instaEmotions.model'
 
 # Create output files
