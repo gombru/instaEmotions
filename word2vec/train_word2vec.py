@@ -25,7 +25,7 @@ text_data_path = '../../../hd/datasets/instaEmotions/txt/'
 idx_data_path = '../../../hd/datasets/instaEmotions/splits/train_all.txt'
 model_path = '../../../hd/datasets/instaEmotions/models/word2vec/word2vec_model_instaEmotions.model'
 words2filter = ['rt','http','t','gt','co','s','https','http','tweet','markars_','photo','pictur','picture','say','photo','much','tweet','now','blog','wikipedia','google', 'flickr', 'figure', 'photo', 'image', 'homepage', 'url', 'youtube','wikipedia','google', 'flickr', 'figure', 'photo', 'image', 'homepage', 'url', 'youtube', 'images', 'blog', 'pinterest']
-instaEmotions_text_data_path = '../../../hd/datasets/instaEmotions/captions.json'
+instaEmotions_text_data_path = '../../../hd/datasets/instaEmotions/json_filtered/'
 
 size = 300 # vector size
 min_count = 5 # minimum word count to 2 in order to give higher frequency words more weighting
@@ -78,10 +78,10 @@ def get_EmotionsDataset():
     return posts_text
 
 def get_instaEmotions():
-    print "Loading data"
     data = load(instaEmotions_text_data_path)
     for k, v in data.iteritems():
         filtered_caption = ""
+        caption = v['caption']
         caption = v.replace('#', ' ')
         for char in caption:
             if char in whitelist:
