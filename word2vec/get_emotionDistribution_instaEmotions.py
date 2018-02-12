@@ -7,6 +7,9 @@ import numpy as np
 import gensim
 from random import randint
 import multiprocessing
+import sys
+sys.path.insert(0, '../datasetCode/')
+from load_jsons import *
 
 # Load data and model
 base_path = '../../../hd/datasets/instaEmotions/'
