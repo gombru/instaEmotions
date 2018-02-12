@@ -87,9 +87,7 @@ def infer_word2vec(id, caption):
         embedding = embedding / np.linalg.norm(embedding)
 
     return id, embedding
-print "Out file is: " + gt_out_path
 
-print "Loading data"
 data = load(instaEmotions_text_data_path)
 
 parallelizer = Parallel(n_jobs=cores)
