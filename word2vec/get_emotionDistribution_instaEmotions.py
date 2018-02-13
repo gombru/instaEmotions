@@ -48,6 +48,7 @@ whitelist = string.letters + string.digits + ' '
 
 def infer_word2vec(id, caption):
     filtered_caption = ""
+    caption = caption['caption']
     caption = caption.replace('#', ' ')
     for char in caption:
         if char in whitelist:
